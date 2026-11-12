@@ -86,6 +86,8 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
 .leg i{position:relative}
 .leg i .cart{position:absolute;left:4px;top:4px;color:#2f3b2b}
 .sw .n .cart{display:inline-block;vertical-align:-1px}
+.altro{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;padding:12px;margin:0 0 12px;border:2px solid var(--salvia2);border-radius:14px;background:#fff;font:inherit;font-weight:650;color:var(--salvia2);cursor:pointer;-webkit-appearance:none}
+.altro svg{flex:none}
 </style>
 </head>
 <body>
@@ -224,6 +226,10 @@ function periodo(box){
   box.appendChild(sg);
 
   var lista = el("div", "lista"); box.appendChild(lista);
+  var vaiCal = el("button", "altro");
+  vaiCal.innerHTML = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>';
+  vaiCal.appendChild(el("span", "", L("Preferisco date diverse dal sabato", "I prefer dates other than Saturday")));
+  lista.appendChild(vaiCal);
   var i = 0;
   for (var s = APRE; s < CHIUDE; s = piu(s, 7), i++) (function(s, i){
     var b = el("button", "sw" + (i >= 8 ? " nascosto" : ""));
@@ -243,8 +249,7 @@ function periodo(box){
   var altre = el("button", "piu", L("Mostra le settimane fino al 18 settembre", "Show weeks until 18 September"));
   altre.addEventListener("click", function(){ [].forEach.call(lista.querySelectorAll(".sw.nascosto"), function(x){ x.classList.remove("nascosto"); }); altre.classList.add("nascosto"); });
   lista.appendChild(altre);
-  var vaiCal = el("button", "lnk", L("Preferisco date diverse dal sabato", "I prefer dates other than Saturday"));
-  lista.appendChild(vaiCal);
+
 
   var cal = el("div", "cal nascosto"); box.appendChild(cal);
   cal.appendChild(el("p", "nota", L("Tocca il giorno di arrivo e poi quello di partenza. Ogni riga è una settimana da sabato a venerdì.", "Tap your arrival day, then your departure day. Each row is a week from Saturday to Friday.")));
