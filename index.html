@@ -223,7 +223,7 @@ function periodo(box){
   var tit = el("label", ""), sotto = el("p", "nota");
   function testa(){
     tit.textContent = st.modo === "cal" ? L("In quali date potresti venire?", "When could you come?") : L("Quali settimane potrebbero andare bene?", "Which weeks could work for you?");
-    sotto.textContent = st.modo === "cal" ? L("Scegli arrivo e partenza sul calendario.", "Pick arrival and departure on the calendar.") : L("Puoi sceglierne più di una. Le nostre settimane vanno da sabato a sabato.", "You can pick more than one. Our weeks run from Saturday to Saturday.");
+    sotto.textContent = st.modo === "cal" ? L("Scegli arrivo e partenza sul calendario.", "Pick arrival and departure on the calendar.") : L("Scegli un soggiorno da sabato a sabato per risparmiare. Puoi indicare più di una settimana.", "Choose a Saturday to Saturday stay to save. You can pick more than one week.");
   }
   testa(); box.appendChild(tit); box.appendChild(sotto);
   var sg = el("div", "stag");
@@ -265,7 +265,7 @@ function periodo(box){
   nav.appendChild(prima); nav.appendChild(titolo); nav.appendChild(dopo); cal.appendChild(nav);
   var gr = el("div", "gr"); cal.appendChild(gr);
   var leg = el("div", "leg");
-  var l1 = el("div"); var qi = el("i"); qi.appendChild(cart()); l1.appendChild(qi); l1.appendChild(document.createTextNode(L("Sabato: giorno di arrivo consigliato", "Saturday: recommended arrival day")));
+  var l1 = el("div"); var qi = el("i"); qi.appendChild(cart()); l1.appendChild(qi); l1.appendChild(document.createTextNode(L("Scegli un soggiorno da sabato a sabato per risparmiare", "Choose a Saturday to Saturday stay to save")));
   var l2 = el("div"); l2.appendChild(el("i", "ch")); l2.appendChild(document.createTextNode(L("Hotel chiuso", "Hotel closed")));
   leg.appendChild(l1); leg.appendChild(l2); cal.appendChild(leg);
   var scelta = el("div", "scelta nascosto"); cal.appendChild(scelta);
