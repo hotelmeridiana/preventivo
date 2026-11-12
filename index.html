@@ -321,7 +321,7 @@ function leggiPeriodo(card){
 }
 [].forEach.call(document.querySelectorAll(".periodo"), periodo);
 // Tipologie di camera (macro categorie) sotto il budget: una o piu' spunte.
-var TIPI = [["Basic senza box doccia", "Basic without shower cabin"], ["Basic", "Basic"], ["Superior", "Superior"], ["Junior Suite", "Junior Suite"], ["Suite Family", "Family Suite"], ["Non so, consigliatemi voi", "Not sure, please advise me"]];
+var TIPI = [["La più economica disponibile", "The cheapest available"], ["Basic", "Basic"], ["Superior", "Superior"], ["Suite", "Suite"], ["Suite a tema", "Themed suite"], ["Non so, consigliatemi voi", "Not sure, please advise me"]];
 var tipiScelti = {};
 TIPI.forEach(function(t){
   var b = el("button", "", L(t[0], t[1])); b.setAttribute("aria-pressed", "false");
