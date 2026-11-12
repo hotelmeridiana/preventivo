@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Preventivi non confermati, statistiche</title>
+<style>
+:root{--verde:#9ec617;--salvia:#5d7058;--corallo:#e95770;--sabbia:#f4eee5;--bordo:#e9dcc9;--testo:#3b3b3b;--tenue:#6b6459}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sabbia);color:var(--testo);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 14px 50px}
+.wrap{max-width:980px;margin:0 auto}
+header{padding:22px 0 8px}
+header .m{font-size:28px;font-weight:300;color:var(--salvia);line-height:1.1}
+header h1{font-size:20px;margin:6px 0 2px}
+header p{margin:0;color:var(--tenue);font-size:14px}
+.barra{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0}
+.barra button{min-height:42px;padding:8px 14px;border:1.5px solid var(--bordo);border-radius:21px;background:#fff;font:inherit;font-size:15px;color:var(--testo);cursor:pointer}
+.barra button.on{background:var(--salvia);border-color:var(--salvia);color:#fff;font-weight:650}
+.barra label{font-size:14px;color:var(--tenue);display:flex;align-items:center;gap:6px}
+.barra input{min-height:42px;padding:6px 10px;border:1.5px solid var(--bordo);border-radius:12px;font:inherit;font-size:15px;background:#fff;color:var(--testo)}
+.griglia{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:#fff;border:1.5px solid var(--bordo);border-radius:16px;padding:14px}
+.kpi b{display:block;font-size:30px;line-height:1.1}
+.kpi span{font-size:14px;color:var(--tenue)}
+.due{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:#fff;border:1.5px solid var(--bordo);border-radius:18px;padding:16px;margin-bottom:12px}
+.card h2{font-size:17px;margin:0 0 12px}
+.torta{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+.leg{list-style:none;margin:0;padding:0;flex:1;min-width:180px}
+.leg li{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:15px;border-bottom:1px solid #f3ece0}
+.leg i{flex:none;width:14px;height:14px;border-radius:4px}
+.leg span{flex:1}
+.leg b{font-variant-numeric:tabular-nums}
+.riga{display:grid;grid-template-columns:150px 1fr 44px;gap:8px;align-items:center;font-size:14px;padding:4px 0}
+.riga .b{height:18px;border-radius:5px;background:#f3ece0;overflow:hidden;display:flex}
+.riga .b i{display:block;height:100%}
+.riga b{text-align:right;font-variant-numeric:tabular-nums}
+.vuoto{color:var(--tenue);font-size:15px;margin:0}
+.testi{margin:0;padding-left:18px;font-size:15px}
+.testi li{margin-bottom:6px}
+.nota{font-size:13px;color:var(--tenue);margin:10px 0 0}
+#stato{font-size:15px;color:var(--tenue);margin:20px 0}
+@media (max-width:520px){.riga{grid-template-columns:110px 1fr 36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="m">Meridiana</div>
+  <h1>Preventivi non confermati</h1>
+  <p>Chi ha premuto "non desidero confermare il preventivo" e perché. Nessun dato dei clienti. <span id="agg"></span></p>
+</header>
+
+<div class="barra" id="barra">
+  <button type="button" data-g="7" class="on">Ultimi 7 giorni</button>
+  <button type="button" data-g="30">Ultimi 30 giorni</button>
+  <button type="button" data-g="0">Tutto</button>
+  <label>dal <input type="date" id="dal"></label>
+  <label>al <input type="date" id="al"></label>
+</div>
+
+<p id="stato">Carico i dati...</p>
+
+<div id="corpo" hidden>
+  <div class="griglia" id="kpi"></div>
+  <div class="due">
+    <div class="card"><h2>Perché non confermano</h2><div class="torta"><div id="torta"></div><ul class="leg" id="leg"></ul></div></div>
+    <div class="card"><h2>Cosa è successo dopo</h2><div id="esiti"></div><p class="nota">Lo scrivono gli agenti nella colonna "Lavorazione" del foglio quando lavorano la riga.</p></div>
+  </div>
+  <div class="card"><h2>Per settimana di soggiorno del preventivo rifiutato</h2><div id="sett"></div><p class="nota">Settimana 1 = dal 22/05/2027. Ogni barra è divisa per motivo, con gli stessi colori della torta.</p></div>
+  <div class="due">
+    <div class="card"><h2>Budget indicato (motivo prezzo)</h2><div id="budget"></div></div>
+    <div class="card"><h2>Camera che interesserebbe</h2><div id="camere"></div></div>
+  </div>
+  <div class="card"><h2>Cosa ci hanno scritto (altra zona, cambio di programmi)</h2><div id="testi"></div></div>
+</div>
+</div>
+
+<script>
+var MOTORE = "https://script.google.com/macros/s/AKfycbwpf06WKj5uA_cGpVYQrpWY1qTzKflr8j6Uv9x-wndwry01Z4l0rOfj8HCXgkjdwSYe/exec";
+var M = [["prezzo", "Prezzo troppo alto", "#e95770"], ["camera", "Non c'era la camera", "#5d7058"], ["zona", "Altra zona o altro hotel", "#3f7fb5"], ["idea", "Ho cambiato programmi", "#e0a526"], ["", "Solo clic, nessun motivo", "#b9ad9b"]];
+var righe = [], giorni = 7;
+function $(id){ return document.getElementById(id); }
+function iso(d){ function z(x){ return (x < 10 ? "0" : "") + x; } return d.getFullYear() + "-" + z(d.getMonth() + 1) + "-" + z(d.getDate()); }
+function el(tag, cls, testo){ var e = document.createElement(tag); if (cls) e.className = cls; if (testo != null) e.textContent = testo; return e; }
+function vuoto(box, testo){ box.textContent = ""; box.appendChild(el("p", "vuoto", testo || "Nessun dato in questo periodo.")); }
+
+function imposta(g){
+  giorni = g;
+  [].forEach.call(document.querySelectorAll("#barra button"), function(b){ b.classList.toggle("on", Number(b.getAttribute("data-g")) === g); });
+  var oggi = new Date();
+  if (g > 0) { $("dal").value = iso(new Date(oggi.getFullYear(), oggi.getMonth(), oggi.getDate() - (g - 1))); $("al").value = iso(oggi); }
+  else { $("dal").value = ""; $("al").value = ""; }
+  disegna();
+}
+function barra(nome, parti, tot, max){
+  var r = el("div", "riga"); r.appendChild(el("span", "", nome));
+  var b = el("div", "b");
+  parti.forEach(function(p){ if (!p[0]) return; var i = el("i"); i.style.width = (p[0] / max * 100) + "%"; i.style.background = p[1]; i.title = p[2] + ": " + p[0]; b.appendChild(i); });
+  r.appendChild(b); r.appendChild(el("b", "", String(tot)));
+  return r;
+}
+function disegna(){
+  var dal = $("dal").value, al = $("al").value;
+  var dati = righe.filter(function(r){ return (!dal || r.d >= dal) && (!al || r.d <= al); });
+  var n = dati.length;
+  function conta(f){ return dati.filter(f).length; }
+  var conMotivo = conta(function(r){ return r.m; });
+  var altre = conta(function(r){ return r.f.indexOf("Si") === 0 || r.b > 0; });
+  var inviate = conta(function(r){ return r.e === "inviata"; }), nessuna = conta(function(r){ return r.e === "nessuna"; }), annullati = conta(function(r){ return r.e === "annullati"; });
+  var k = $("kpi"); k.textContent = "";
+  [[n, "richieste di annullo"], [conMotivo, "hanno detto il motivo"], [altre, "aperti ad altre date o a un altro prezzo"], [inviate, "nuove proposte inviate"], [nessuna, "senza soluzione"]].forEach(function(x){
+    var c = el("div", "kpi"); c.appendChild(el("b", "", String(x[0]))); c.appendChild(el("span", "", x[1])); k.appendChild(c);
+  });
+
+  // torta dei motivi
+  var conti = M.map(function(m){ return conta(function(r){ return r.m === m[0]; }); });
+  var t = $("torta"), l = $("leg"); t.textContent = ""; l.textContent = "";
+  if (!n) { vuoto(t); }
+  else {
+    var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", "0 0 42 42"); svg.setAttribute("width", "170"); svg.setAttribute("height", "170"); svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Motivi: " + M.map(function(m, i){ return m[1] + " " + conti[i]; }).join(", "));
+    var off = 25;
+    conti.forEach(function(c, i){
+      if (!c) return;
+      var p = c / n * 100, ci = document.createElementNS(ns, "circle");
+      ci.setAttribute("cx", "21"); ci.setAttribute("cy", "21"); ci.setAttribute("r", "15.915"); ci.setAttribute("fill", "none");
+      ci.setAttribute("stroke", M[i][2]); ci.setAttribute("stroke-width", "7");
+      ci.setAttribute("stroke-dasharray", (p - (conti.filter(Boolean).length > 1 ? 0.6 : 0)) + " " + (100 - p + (conti.filter(Boolean).length > 1 ? 0.6 : 0)));
+      ci.setAttribute("stroke-dashoffset", String(off)); off -= p; svg.appendChild(ci);
+    });
+    var tx = document.createElementNS(ns, "text"); tx.setAttribute("x", "21"); tx.setAttribute("y", "23.5"); tx.setAttribute("text-anchor", "middle"); tx.setAttribute("font-size", "8"); tx.setAttribute("font-weight", "700"); tx.setAttribute("fill", "#3b3b3b"); tx.textContent = String(n); svg.appendChild(tx);
+    t.appendChild(svg);
+  }
+  M.forEach(function(m, i){
+    var li = el("li"); var q = el("i"); q.style.background = m[2]; li.appendChild(q); li.appendChild(el("span", "", m[1]));
+    li.appendChild(el("b", "", conti[i] + (n ? " (" + Math.round(conti[i] / n * 100) + "%)" : ""))); l.appendChild(li);
+  });
+
+  // esiti
+  var e = $("esiti"); e.textContent = "";
+  var daLav = n - inviate - nessuna - annullati, mx = Math.max(1, annullati, inviate, nessuna, daLav);
+  e.appendChild(barra("Nuova proposta inviata", [[inviate, "#5d7058", "inviate"]], inviate, mx));
+  e.appendChild(barra("Solo reminder annullati", [[annullati, "#9ec617", "annullati"]], annullati, mx));
+  e.appendChild(barra("Nessuna soluzione", [[nessuna, "#e95770", "nessuna"]], nessuna, mx));
+  e.appendChild(barra("Ancora da lavorare", [[daLav, "#b9ad9b", "da lavorare"]], daLav, mx));
+
+  // settimane di soggiorno
+  var s = $("sett"); s.textContent = "";
+  var per = {};
+  dati.forEach(function(r){ var kk = r.s || 0; if (!per[kk]) per[kk] = {tot: 0}; per[kk].tot++; per[kk][r.m] = (per[kk][r.m] || 0) + 1; });
+  var chiavi = Object.keys(per).map(Number).sort(function(a, b){ return (a || 99) - (b || 99); });
+  if (!chiavi.length) vuoto(s);
+  else {
+    var mxs = Math.max.apply(null, chiavi.map(function(c){ return per[c].tot; }));
+    chiavi.forEach(function(c){
+      var nome = "Fuori stagione o senza data";
+      if (c) { var g = new Date(2027, 4, 22 + (c - 1) * 7); nome = "Sett. " + c + " (" + ("0" + g.getDate()).slice(-2) + "/" + ("0" + (g.getMonth() + 1)).slice(-2) + ")"; }
+      s.appendChild(barra(nome, M.map(function(m){ return [per[c][m[0]] || 0, m[2], m[1]]; }), per[c].tot, mxs));
+    });
+  }
+
+  // budget
+  var b = $("budget"); b.textContent = "";
+  var bud = dati.filter(function(r){ return r.b > 0; }).map(function(r){ return r.b; }).sort(function(x, y){ return x - y; });
+  if (!bud.length) vuoto(b, "Nessun budget indicato in questo periodo.");
+  else {
+    var media = Math.round(bud.reduce(function(x, y){ return x + y; }, 0) / bud.length);
+    var g2 = el("div", "griglia");
+    [[bud.length, "budget indicati"], [media + " €", "media"], [bud[0] + " €", "il più basso"], [bud[bud.length - 1] + " €", "il più alto"]].forEach(function(x){ var c = el("div", "kpi"); c.appendChild(el("b", "", String(x[0]))); c.appendChild(el("span", "", x[1])); g2.appendChild(c); });
+    b.appendChild(g2);
+    var fasce = [["fino a 1.000 €", 0, 1000], ["1.001 - 1.500 €", 1001, 1500], ["1.501 - 2.000 €", 1501, 2000], ["2.001 - 3.000 €", 2001, 3000], ["oltre 3.000 €", 3001, 1e9]];
+    var cf = fasce.map(function(f){ return bud.filter(function(x){ return x >= f[1] && x <= f[2]; }).length; }), mxf = Math.max.apply(null, cf.concat([1]));
+    fasce.forEach(function(f, i){ b.appendChild(barra(f[0], [[cf[i], "#e95770", f[0]]], cf[i], mxf)); });
+  }
+
+  // camere
+  var c = $("camere"); c.textContent = "";
+  var cam = {};
+  dati.forEach(function(r){ r.c.split(",").forEach(function(x){ x = x.trim(); if (x) cam[x] = (cam[x] || 0) + 1; }); });
+  var nomi = Object.keys(cam).sort(function(x, y){ return cam[y] - cam[x]; });
+  if (!nomi.length) vuoto(c, "Nessuna camera indicata in questo periodo.");
+  else { var mxc = cam[nomi[0]]; nomi.forEach(function(x){ c.appendChild(barra(x.length > 26 ? x.slice(0, 25) + "..." : x, [[cam[x], "#5d7058", x]], cam[x], mxc)); }); }
+
+  // testi liberi
+  var tt = $("testi"); tt.textContent = "";
+  var testi = dati.filter(function(r){ return r.t; });
+  if (!testi.length) vuoto(tt, "Nessun commento in questo periodo.");
+  else { var ul = el("ul", "testi"); testi.forEach(function(r){ ul.appendChild(el("li", "", (r.m === "zona" ? "Altra zona: " : "Programmi: ") + r.t)); }); tt.appendChild(ul); }
+}
+
+[].forEach.call(document.querySelectorAll("#barra button"), function(b){ b.addEventListener("click", function(){ imposta(Number(b.getAttribute("data-g"))); }); });
+["dal", "al"].forEach(function(id){ $(id).addEventListener("change", function(){ [].forEach.call(document.querySelectorAll("#barra button"), function(b){ b.classList.remove("on"); }); disegna(); }); });
+
+var chiave = new URLSearchParams(location.search).get("k") || "";
+if (!chiave) { $("stato").textContent = "Manca la chiave nel link. Usa il link completo che hai salvato."; }
+else {
+  fetch(MOTORE, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify({az: "stat", k: chiave}), credentials: "omit", redirect: "follow"})
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      if (!j || !j.ok) { $("stato").textContent = "Il link non è valido."; return; }
+      righe = j.righe || [];
+      $("stato").hidden = true; $("corpo").hidden = false;
+      $("agg").textContent = "Dati aggiornati adesso (" + righe.length + " in tutto).";
+      imposta(7);
+    })
+    .catch(function(){ $("stato").textContent = "Non riesco a leggere i dati. Riprova fra poco."; });
+}
+</script>
+</body>
+</html>
