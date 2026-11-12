@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Meridiana Family & Nature Hotel</title>
+<style>
+:root{--verde:#9ec617;--salvia:#6b7b66;--salvia2:#5d7058;--corallo:#e95770;--corallo2:#d9445f;--sabbia:#f4eee5;--bordo:#e9dcc9;--testo:#3b3b3b;--tenue:#7b7468}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--sabbia);color:var(--testo);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 14px 60px;-webkit-text-size-adjust:100%}
+.wrap{max-width:480px;margin:0 auto}
+.testa{text-align:center;padding:26px 0 4px}
+.testa img{width:230px;max-width:70%;height:auto;display:block;margin:0 auto}
+.logo{font-size:34px;font-weight:300;color:var(--verde);letter-spacing:.02em;line-height:1.1}
+.logo small{display:block;font-size:13px;color:var(--salvia);letter-spacing:.14em;margin-top:6px}
+.card{background:#fff;border-radius:22px;padding:26px 20px 22px;margin-top:16px;box-shadow:0 10px 30px rgba(107,123,102,.12);animation:su .35s ease both}
+@keyframes su{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card{animation:none}}
+h1{font-size:24px;line-height:1.25;margin:0 0 8px;font-weight:650;letter-spacing:-.01em}
+p{margin:0 0 14px}
+.sub{color:var(--tenue)}
+.chiedi{font-weight:600;margin:18px 0 12px}
+.btn{position:relative;display:block;width:100%;text-align:left;padding:17px 44px 17px 18px;margin:0 0 10px;border:1.5px solid var(--bordo);border-radius:16px;background:#fdfbf8;font:inherit;color:var(--testo);cursor:pointer;-webkit-appearance:none;transition:background .15s,border-color .15s,transform .08s;-webkit-tap-highlight-color:transparent}
+.btn::after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--salvia);border-top:2px solid var(--salvia);transform:translateY(-50%) rotate(45deg);opacity:.7}
+.btn:hover{border-color:var(--salvia);background:#fff}
+.btn:active{transform:scale(.985)}
+.btn.on{background:var(--salvia);border-color:var(--salvia);color:#fff}
+.btn:focus-visible,.invia:focus-visible{outline:3px solid rgba(107,123,102,.45);outline-offset:2px}
+.due{display:flex;gap:10px}
+.due .btn{text-align:center;margin:0;padding:15px 10px}
+.due .btn::after{display:none}
+.due>div{flex:1;min-width:0}
+label{display:block;font-weight:600;margin:18px 0 8px}
+label.piccola{font-weight:400;font-size:14px;color:var(--tenue);margin:0 0 4px}
+input{width:100%;padding:14px;border:1.5px solid var(--bordo);border-radius:14px;font:inherit;background:#fdfbf8;color:var(--testo);-webkit-appearance:none;min-height:54px}
+input:focus{outline:none;border-color:var(--salvia);background:#fff}
+.periodo{background:#f8f4ee;border-radius:16px;padding:2px 14px 14px;margin-top:12px}
+.invia{display:block;width:100%;margin-top:20px;padding:17px;border:0;border-radius:16px;background:var(--corallo);color:#fff;font:inherit;font-weight:650;cursor:pointer;box-shadow:0 6px 16px rgba(233,87,112,.28);transition:background .15s,transform .08s}
+.invia:hover{background:var(--corallo2)}
+.invia:active{transform:scale(.985)}
+.mini{font-size:14px;color:var(--tenue);text-align:center;margin:14px 0 0}
+.spunta{width:58px;height:58px;border-radius:50%;background:#eef4dc;margin:0 auto 14px;position:relative}
+.spunta::after{content:"";position:absolute;left:21px;top:13px;width:13px;height:24px;border-right:4px solid var(--verde);border-bottom:4px solid var(--verde);transform:rotate(45deg)}
+#fine{text-align:center}
+.piede{text-align:center;font-size:13px;color:var(--tenue);margin-top:24px;line-height:1.7}
+.piede a{color:var(--salvia2);text-decoration:none;font-weight:600}
+.nascosto{display:none}
+
+.stag{margin:4px 0 14px}
+.stag b{display:block;font-size:15px;margin-bottom:7px}
+.stag .barra{position:relative;height:12px;border-radius:6px;background:var(--bordo)}
+.stag .barra i{position:absolute;top:0;height:12px;border-radius:6px;background:var(--verde);left:18.3%;width:73.9%}
+.stag .mesi{display:flex;font-size:12px;color:var(--tenue);margin-top:4px}
+.stag .mesi span{flex:1;text-align:center}
+.nota{font-size:14px;color:var(--tenue);margin:-2px 0 12px}
+.sw{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 12px;margin:0 0 8px;border:1.5px solid var(--bordo);border-radius:14px;background:#fdfbf8;font:inherit;color:var(--testo);text-align:left;cursor:pointer;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}
+.sw .q{flex:none;width:26px;height:26px;border-radius:8px;border:2px solid #b9ad9b;background:#fff;position:relative}
+.sw.on{border-color:var(--salvia2);background:#eef2ec}
+.sw.on .q{border-color:var(--salvia2);background:var(--salvia2)}
+.sw.on .q::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;border-right:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(45deg)}
+.sw .d{flex:1;font-weight:650}
+.sw .d small{display:block;font-weight:700;font-size:12px;color:#4c5f47}
+.sw .n{flex:none;background:#e4f0b8;border-radius:10px;padding:5px 8px;font-size:12px;font-weight:700;color:#2f3b2b}
+.piu{display:block;width:100%;padding:12px;margin:2px 0 6px;border:1.5px solid var(--bordo);border-radius:14px;background:#fff;font:inherit;font-size:15px;font-weight:650;color:#4c5f47;cursor:pointer}
+.lnk{display:block;width:100%;padding:10px;border:0;background:transparent;font:inherit;font-size:15px;color:#4c5f47;text-decoration:underline;cursor:pointer}
+.cal .nav{display:flex;align-items:center;justify-content:space-between;margin:6px 0 8px}
+.cal .nav b{font-size:18px}
+.cal .nav button{width:44px;height:44px;border:1.5px solid var(--bordo);border-radius:12px;background:#fff;font:inherit;font-size:20px;color:var(--salvia2);cursor:pointer}
+.cal .nav button:disabled{opacity:.3}
+.gr{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.gr .h{text-align:center;font-size:12px;font-weight:700;color:var(--tenue);padding:4px 0}
+.gr .h.sab{color:#2f3b2b;background:#e4f0b8;border-radius:8px}
+.gr button{height:46px;padding:0;border:0;border-radius:10px;background:#fff;font:inherit;font-size:16px;color:var(--testo);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gr button.sab{background:#e4f0b8;color:#2f3b2b;font-weight:700}
+.gr button.ch{background:#efe7da;color:var(--tenue);text-decoration:line-through;border:1px dashed #b9ad9b;cursor:default}
+.gr button.mez{background:#dfe6dc}
+.gr button.est{background:var(--salvia2);color:#fff;font-weight:700}
+.leg{font-size:13px;margin:12px 0 4px;line-height:2}
+.leg i{display:inline-block;width:20px;height:20px;border-radius:6px;vertical-align:middle;margin-right:8px;background:#e4f0b8}
+.leg i.ch{background:#efe7da;border:1px dashed #b9ad9b;box-sizing:border-box}
+.scelta{background:var(--sabbia);border-radius:12px;padding:12px;font-size:15px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="testa">
+    <img id="logo" alt="Meridiana Family &amp; Nature Hotel" src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/1cb4d85f-26f3-4339-86a7-d07d8adee8c7/hotel-7891/Group%202746.png" width="230" height="71">
+    <div class="logo nascosto" id="logotesto">Meridiana<small>FAMILY &amp; NATURE HOTEL</small></div>
+  </div>
+
+  <div class="card" id="passo1">
+    <h1 id="saluto">Grazie.</h1>
+    <p class="sub">Abbiamo preso nota, grazie per avercelo detto.</p>
+    <p class="chiedi">Ci dici il motivo? Basta un tocco.</p>
+    <button class="btn" data-m="prezzo">Il prezzo è troppo alto</button>
+    <button class="btn" data-m="camera">Non c'era la camera che cercavo</button>
+    <button class="btn" data-m="zona">Preferisco un'altra zona o un altro hotel</button>
+    <button class="btn" data-m="idea">Ho cambiato programmi</button>
+  </div>
+
+  <div class="card nascosto" id="prezzo">
+    <h1>Grazie, è utile saperlo.</h1>
+    <p class="sub">Con due informazioni possiamo guardare se esiste una soluzione più adatta.</p>
+    <label for="budget">Quanto pensavi di spendere per il soggiorno?</label>
+    <input id="budget" type="text" inputmode="numeric" placeholder="es. 1500 euro">
+    <div class="flex"></div>
+    <button class="invia" data-da="prezzo">Invia</button>
+    <p class="mini">Facoltativo: il motivo è già registrato.</p>
+  </div>
+
+  <div class="card nascosto" id="camera">
+    <h1>Grazie, è utile saperlo.</h1>
+    <label for="quale">Quale camera cercavi?</label>
+    <input id="quale" type="text" placeholder="es. suite, camere comunicanti, balcone">
+    <div class="flex"></div>
+    <button class="invia" data-da="camera">Invia</button>
+    <p class="mini">Facoltativo: il motivo è già registrato.</p>
+  </div>
+
+  <div class="card nascosto" id="fine">
+    <div class="spunta"></div>
+    <h1>Grazie davvero.</h1>
+    <p class="sub" id="finetesto">Ci hai aiutato a migliorare. Se cambi idea, ci trovi sempre.</p>
+  </div>
+
+  <div class="piede">Meridiana Family &amp; Nature Hotel, Marina Romea<br>Tel. 0544 446040 &middot; <a href="https://www.hotelmeridiana.net">hotelmeridiana.net</a></div>
+</div>
+
+<template id="tflex">
+  <label>Le date sono flessibili?</label>
+  <div class="due">
+    <button class="btn fl" data-v="Si">Sì, anche altri periodi</button>
+    <button class="btn fl" data-v="No">No, solo quelle</button>
+  </div>
+  <div class="periodo nascosto"></div>
+</template>
+
+<script>
+// Il motore che scrive nel foglio (Apps Script). Il cliente non lo vede mai.
+var MOTORE = "https://script.google.com/macros/s/AKfycbwpf06WKj5uA_cGpVYQrpWY1qTzKflr8j6Uv9x-wndwry01Z4l0rOfj8HCXgkjdwSYe/exec";
+
+// Se il logo non si carica resta la scritta.
+document.getElementById("logo").addEventListener("error", function(){ this.classList.add("nascosto"); document.getElementById("logotesto").classList.remove("nascosto"); });
+
+var q = new URLSearchParams(location.search);
+function par(k){ return (q.get(k) || "").replace(/[<>]/g, "").slice(0, 100); }
+// Se BeDirect non ha riempito una variabile resta scritto {@...@}: si tratta come vuoto.
+function vero(v){ return v.indexOf("{@") === -1 ? v : ""; }
+var dati0 = {az: "clic", p: vero(par("p")), "in": vero(par("in")), out: vero(par("out")), n: vero(par("n")), cg: vero(par("cg"))};
+
+// Lingua: italiano, oppure inglese se il link finisce con &l=en (reminder in inglese).
+var EN = par("l").toLowerCase() === "en";
+var T = EN ? {
+  grazie: "Thank you", preso: "We have taken note, thank you for letting us know.",
+  chiedi: "Would you tell us why? One tap is enough.",
+  m_prezzo: "The price is too high", m_camera: "The room I wanted was not available",
+  m_zona: "I prefer another area or another hotel", m_idea: "My plans have changed",
+  utile: "Thank you, that helps.", due: "With two details we can check whether there is a better option for you.",
+  budget: "How much were you planning to spend for the stay?", budget_es: "e.g. 1500 euro",
+  quale: "Which room were you looking for?", quale_es: "e.g. suite, connecting rooms, balcony",
+  fless: "Are your dates flexible?", si: "Yes, other dates too", no: "No, only those",
+  periodo: "When could you come?", dal: "From", al: "To", invia: "Send",
+  facolt: "Optional: your reason is already saved.", fine: "Thank you very much.",
+  fine1: "You have helped us improve. If you change your mind, we are always here.",
+  fine2: "We will check whether there is a better option and, if we find one, we will write to you."
+} : null;
+function tx(sel, testo, tutti){ [].forEach.call(document.querySelectorAll(sel), function(e, i){ if (tutti || i === 0) e.textContent = testo; }); }
+function traduci(){
+  document.documentElement.lang = "en";
+  tx("#passo1 .sub", T.preso); tx("#passo1 .chiedi", T.chiedi);
+  tx('[data-m="prezzo"]', T.m_prezzo); tx('[data-m="camera"]', T.m_camera); tx('[data-m="zona"]', T.m_zona); tx('[data-m="idea"]', T.m_idea);
+  tx("#prezzo h1", T.utile); tx("#camera h1", T.utile); tx("#prezzo .sub", T.due);
+  tx('label[for="budget"]', T.budget); document.getElementById("budget").placeholder = T.budget_es;
+  tx('label[for="quale"]', T.quale); document.getElementById("quale").placeholder = T.quale_es;
+  tx(".invia", T.invia, true); tx(".mini", T.facolt, true);
+  tx("#fine h1", T.fine); tx("#finetesto", T.fine1);
+}
+function traduciFlex(){
+  tx(".flex > label", T.fless, true); tx('.fl[data-v="Si"]', T.si, true); tx('.fl[data-v="No"]', T.no, true);
+}
+if (EN) traduci();
+
+var saluto = (EN ? T.grazie : "Grazie");
+document.getElementById("saluto").textContent = dati0.n ? saluto + ", " + dati0.n + "." : saluto + ".";
+
+[].forEach.call(document.querySelectorAll(".flex"), function(d){
+  d.appendChild(document.getElementById("tflex").content.cloneNode(true));
+});
+if (EN) traduciFlex();
+
+// ---- Periodo flessibile: settimane da sabato a sabato, oppure calendario libero ----
+function L(it, en){ return EN ? en : it; }
+var APRE = new Date(2027, 4, 29), CHIUDE = new Date(2027, 8, 18);
+var MESI = EN ? ["January","February","March","April","May","June","July","August","September"] : ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre"];
+var MB = EN ? ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"] : ["gen","feb","mar","apr","mag","giu","lug","ago","set"];
+var GG = EN ? ["Sat","Sun","Mon","Tue","Wed","Thu","Fri"] : ["Sab","Dom","Lun","Mar","Mer","Gio","Ven"];
+function piu(d, n){ return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+function iso(d){ function z(x){ return (x < 10 ? "0" : "") + x; } return d.getFullYear() + "-" + z(d.getMonth() + 1) + "-" + z(d.getDate()); }
+function corta(d){ return d.getDate() + " " + MB[d.getMonth()]; }
+function el(tag, cls, testo){ var e = document.createElement(tag); if (cls) e.className = cls; if (testo != null) e.textContent = testo; if (tag === "button") e.type = "button"; return e; }
+
+function periodo(box){
+  var st = {sett: {}, modo: "sett", a: null, b: null, mese: 4};
+  box._st = st;
+  box.appendChild(el("label", "", L("Quali settimane potrebbero andare bene?", "Which weeks could work for you?")));
+  box.appendChild(el("p", "nota", L("Puoi sceglierne più di una. Le nostre settimane vanno da sabato a sabato.", "You can pick more than one. Our weeks run from Saturday to Saturday.")));
+  var sg = el("div", "stag");
+  sg.appendChild(el("b", "", L("Siamo aperti dal 29 maggio al 18 settembre 2027", "We are open from 29 May to 18 September 2027")));
+  var ba = el("div", "barra"); ba.appendChild(el("i")); sg.appendChild(ba);
+  var ms = el("div", "mesi"); [4,5,6,7,8].forEach(function(m){ ms.appendChild(el("span", "", MB[m])); }); sg.appendChild(ms);
+  box.appendChild(sg);
+
+  var lista = el("div", "lista"); box.appendChild(lista);
+  var i = 0;
+  for (var s = APRE; s < CHIUDE; s = piu(s, 7), i++) (function(s, i){
+    var b = el("button", "sw" + (i >= 8 ? " nascosto" : ""));
+    b.setAttribute("aria-pressed", "false");
+    b.appendChild(el("span", "q"));
+    var d = el("span", "d", GG[0] + " " + corta(s) + " → " + GG[0] + " " + corta(piu(s, 7)));
+    if (i === 0) d.appendChild(el("small", "", L("Settimana di apertura", "Opening week")));
+    b.appendChild(d);
+    b.appendChild(el("span", "n", L("7 notti", "7 nights")));
+    b.addEventListener("click", function(){
+      var k = iso(s);
+      if (st.sett[k]) delete st.sett[k]; else st.sett[k] = true;
+      b.classList.toggle("on", !!st.sett[k]); b.setAttribute("aria-pressed", st.sett[k] ? "true" : "false");
+    });
+    lista.appendChild(b);
+  })(s, i);
+  var altre = el("button", "piu", L("Mostra le settimane fino al 18 settembre", "Show weeks until 18 September"));
+  altre.addEventListener("click", function(){ [].forEach.call(lista.querySelectorAll(".sw.nascosto"), function(x){ x.classList.remove("nascosto"); }); altre.classList.add("nascosto"); });
+  lista.appendChild(altre);
+  var vaiCal = el("button", "lnk", L("Preferisco date diverse dal sabato", "I prefer dates other than Saturday"));
+  lista.appendChild(vaiCal);
+
+  var cal = el("div", "cal nascosto"); box.appendChild(cal);
+  cal.appendChild(el("p", "nota", L("Tocca il giorno di arrivo e poi quello di partenza. Ogni riga è una settimana da sabato a venerdì.", "Tap your arrival day, then your departure day. Each row is a week from Saturday to Friday.")));
+  var nav = el("div", "nav"), prima = el("button", "", "‹"), titolo = el("b"), dopo = el("button", "", "›");
+  prima.setAttribute("aria-label", L("Mese precedente", "Previous month")); dopo.setAttribute("aria-label", L("Mese successivo", "Next month"));
+  nav.appendChild(prima); nav.appendChild(titolo); nav.appendChild(dopo); cal.appendChild(nav);
+  var gr = el("div", "gr"); cal.appendChild(gr);
+  var leg = el("div", "leg");
+  var l1 = el("div"); l1.appendChild(el("i")); l1.appendChild(document.createTextNode(L("Sabato: giorno di arrivo consigliato", "Saturday: recommended arrival day")));
+  var l2 = el("div"); l2.appendChild(el("i", "ch")); l2.appendChild(document.createTextNode(L("Hotel chiuso", "Hotel closed")));
+  leg.appendChild(l1); leg.appendChild(l2); cal.appendChild(leg);
+  var scelta = el("div", "scelta nascosto"); cal.appendChild(scelta);
+  var tornaSett = el("button", "lnk", L("Torna alle settimane da sabato a sabato", "Back to Saturday to Saturday weeks"));
+  cal.appendChild(tornaSett);
+
+  function disegna(){
+    titolo.textContent = MESI[st.mese] + " 2027";
+    prima.disabled = st.mese <= 4; dopo.disabled = st.mese >= 8;
+    gr.textContent = "";
+    GG.forEach(function(g, i){ gr.appendChild(el("div", "h" + (i === 0 ? " sab" : ""), g)); });
+    var uno = new Date(2027, st.mese, 1), vuoti = (uno.getDay() + 1) % 7, n = new Date(2027, st.mese + 1, 0).getDate();
+    for (var v = 0; v < vuoti; v++) gr.appendChild(el("div"));
+    for (var g = 1; g <= n; g++) (function(d){
+      var b = el("button", "", String(d.getDate()));
+      if (d < APRE || d > CHIUDE) { b.className = "ch"; b.disabled = true; b.setAttribute("aria-label", d.getDate() + " " + MESI[d.getMonth()] + ", " + L("hotel chiuso", "hotel closed")); }
+      else {
+        if (d.getDay() === 6) b.className = "sab";
+        if (st.a && +d === +st.a || st.b && +d === +st.b) b.className = "est";
+        else if (st.a && st.b && d > st.a && d < st.b) b.className = "mez";
+        b.addEventListener("click", function(){
+          if (!st.a || st.b || d <= st.a) { st.a = d; st.b = null; } else st.b = d;
+          disegna();
+        });
+      }
+      gr.appendChild(b);
+    })(new Date(2027, st.mese, g));
+    if (st.a && st.b) { scelta.textContent = corta(st.a) + " → " + corta(st.b) + " · " + Math.round((st.b - st.a) / 864e5) + " " + L("notti", "nights"); scelta.classList.remove("nascosto"); }
+    else if (st.a) { scelta.textContent = L("Arrivo ", "Arrival ") + corta(st.a) + L(": ora tocca il giorno di partenza", ": now tap your departure day"); scelta.classList.remove("nascosto"); }
+    else scelta.classList.add("nascosto");
+  }
+  prima.addEventListener("click", function(){ if (st.mese > 4) { st.mese--; disegna(); } });
+  dopo.addEventListener("click", function(){ if (st.mese < 8) { st.mese++; disegna(); } });
+  vaiCal.addEventListener("click", function(){ st.modo = "cal"; lista.classList.add("nascosto"); cal.classList.remove("nascosto"); disegna(); });
+  tornaSett.addEventListener("click", function(){ st.modo = "sett"; cal.classList.add("nascosto"); lista.classList.remove("nascosto"); });
+}
+// Cosa si manda al foglio: dal, al e una nota leggibile.
+function leggiPeriodo(card){
+  var st = card.querySelector(".periodo")._st, r = {};
+  if (!st) return r;
+  if (st.modo === "cal") {
+    if (st.a) { r.dal = iso(st.a); r.al = iso(st.b || st.a); r.note = "Date libere scelte dal calendario"; }
+  } else {
+    var k = Object.keys(st.sett).sort();
+    if (k.length) {
+      function fine(x){ var p = x.split("-"); return piu(new Date(+p[0], +p[1] - 1, +p[2]), 7); }
+      r.dal = k[0]; r.al = iso(fine(k[k.length - 1]));
+      r.note = "Settimane sab-sab: " + k.map(function(x){ var p = x.split("-"); return p[2] + "/" + p[1] + "-" + ("0" + fine(x).getDate()).slice(-2) + "/" + ("0" + (fine(x).getMonth() + 1)).slice(-2); }).join(", ");
+    }
+  }
+  return r;
+}
+[].forEach.call(document.querySelectorAll(".periodo"), periodo);
+
+function chiama(corpo){
+  // text/plain evita la richiesta di controllo del browser; niente cookie, quindi nessun problema di account Google.
+  return fetch(MOTORE, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(corpo), credentials: "omit", redirect: "follow"})
+    .then(function(r){ return r.json(); });
+}
+
+// Il clic si registra subito, all'apertura. Le risposte successive aspettano in fila la riga.
+// Se l'indirizzo e' arrivato senza nessun dato (pagina aperta a mano) la riga nasce solo alla prima risposta.
+var vuoto = !(dati0.p || dati0["in"] || dati0.out || dati0.n || dati0.cg);
+function clic(){ return chiama(dati0).catch(function(){ return null; }); }
+var riga = vuoto ? null : clic();
+var coda = Promise.resolve();
+function manda(d){
+  if (!riga) riga = clic();
+  coda = coda.then(function(){ return riga; }).then(function(r){
+    if (!r || !r.ok) return null;
+    return chiama({az: "registra", riga: r.riga, chiave: r.chiave, dati: d}).catch(function(){ return null; });
+  });
+}
+
+function mostra(id){
+  ["passo1", "prezzo", "camera", "fine"].forEach(function(x){ document.getElementById(x).classList.add("nascosto"); });
+  document.getElementById(id).classList.remove("nascosto");
+  window.scrollTo(0, 0);
+}
+
+[].forEach.call(document.querySelectorAll("#passo1 .btn"), function(b){
+  b.addEventListener("click", function(){
+    var m = b.getAttribute("data-m");
+    manda({motivo: m});
+    mostra(m === "prezzo" || m === "camera" ? m : "fine");
+  });
+});
+
+[].forEach.call(document.querySelectorAll(".fl"), function(b){
+  b.addEventListener("click", function(){
+    var card = b.closest(".card");
+    [].forEach.call(card.querySelectorAll(".fl"), function(x){ x.classList.remove("on"); });
+    b.classList.add("on");
+    card.setAttribute("data-flex", b.getAttribute("data-v"));
+    card.querySelector(".periodo").classList.toggle("nascosto", b.getAttribute("data-v") !== "Si");
+  });
+});
+
+[].forEach.call(document.querySelectorAll(".invia"), function(b){
+  b.addEventListener("click", function(){
+    var da = b.getAttribute("data-da");
+    var card = document.getElementById(da);
+    var flex = card.getAttribute("data-flex") || "";
+    var d = {motivo: da, flessibili: flex, completo: true};
+    if (flex === "Si") { var pe = leggiPeriodo(card); if (pe.dal) { d.dal = pe.dal; d.al = pe.al; d.note = pe.note; } }
+    if (da === "prezzo") d.budget = document.getElementById("budget").value;
+    if (da === "camera") d.camera = document.getElementById("quale").value;
+    manda(d);
+    if (flex === "Si" || d.budget || d.camera) {
+      document.getElementById("finetesto").textContent = EN ? T.fine2 : "Guardiamo se c'è una soluzione più adatta e, se la troviamo, ti scriviamo.";
+    }
+    mostra("fine");
+  });
+});
+</script>
+</body>
+</html>
