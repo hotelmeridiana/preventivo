@@ -88,6 +88,10 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
 .sw .n .cart{display:inline-block;vertical-align:-1px}
 .altro{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;padding:12px;margin:0 0 12px;border:2px solid var(--salvia2);border-radius:14px;background:#fff;font:inherit;font-weight:650;color:var(--salvia2);cursor:pointer;-webkit-appearance:none}
 .altro svg{flex:none}
+.sw.nascosto{display:none}
+.tipi{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.tipi button{min-height:46px;padding:10px 14px;border:1.5px solid var(--bordo);border-radius:23px;background:#fdfbf8;font:inherit;font-size:15px;color:var(--testo);cursor:pointer;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}
+.tipi button.on{background:var(--salvia2);border-color:var(--salvia2);color:#fff;font-weight:650}
 </style>
 </head>
 <body>
@@ -112,6 +116,9 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
     <p class="sub">Con due informazioni possiamo guardare se esiste una soluzione più adatta.</p>
     <label for="budget">Quanto pensavi di spendere per il soggiorno?</label>
     <input id="budget" type="text" inputmode="numeric" placeholder="es. 1500 euro">
+    <label id="tipilab">Quale camera ti interesserebbe?</label>
+    <p class="nota" id="tipinota">Puoi sceglierne più di una.</p>
+    <div class="tipi" id="tipi"></div>
     <div class="flex"></div>
     <button class="invia" data-da="prezzo">Invia</button>
     <p class="mini">Facoltativo: il motivo è già registrato.</p>
@@ -313,6 +320,19 @@ function leggiPeriodo(card){
   return r;
 }
 [].forEach.call(document.querySelectorAll(".periodo"), periodo);
+// Tipologie di camera (macro categorie) sotto il budget: una o piu' spunte.
+var TIPI = [["Basic senza box doccia", "Basic without shower cabin"], ["Basic", "Basic"], ["Superior", "Superior"], ["Junior Suite", "Junior Suite"], ["Suite Family", "Family Suite"], ["Non so, consigliatemi voi", "Not sure, please advise me"]];
+var tipiScelti = {};
+TIPI.forEach(function(t){
+  var b = el("button", "", L(t[0], t[1])); b.setAttribute("aria-pressed", "false");
+  b.addEventListener("click", function(){
+    if (tipiScelti[t[0]]) delete tipiScelti[t[0]]; else tipiScelti[t[0]] = true;
+    b.classList.toggle("on", !!tipiScelti[t[0]]); b.setAttribute("aria-pressed", tipiScelti[t[0]] ? "true" : "false");
+  });
+  document.getElementById("tipi").appendChild(b);
+});
+if (EN) { document.getElementById("tipilab").textContent = "Which room would you be interested in?"; document.getElementById("tipinota").textContent = "You can pick more than one."; }
+
 
 function chiama(corpo){
   // text/plain evita la richiesta di controllo del browser; niente cookie, quindi nessun problema di account Google.
@@ -365,7 +385,7 @@ function mostra(id){
     var flex = card.getAttribute("data-flex") || "";
     var d = {motivo: da, flessibili: flex, completo: true};
     if (flex === "Si") { var pe = leggiPeriodo(card); if (pe.dal) { d.dal = pe.dal; d.al = pe.al; d.note = pe.note; } }
-    if (da === "prezzo") d.budget = document.getElementById("budget").value;
+    if (da === "prezzo") { d.budget = document.getElementById("budget").value; var tp = TIPI.filter(function(t){ return tipiScelti[t[0]]; }).map(function(t){ return t[0]; }).join(", "); if (tp) d.camera = tp; }
     if (da === "camera") d.camera = document.getElementById("quale").value;
     manda(d);
     if (flex === "Si" || d.budget || d.camera) {
