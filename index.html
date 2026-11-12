@@ -92,6 +92,8 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
 .tipi{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
 .tipi button{min-height:46px;padding:10px 14px;border:1.5px solid var(--bordo);border-radius:23px;background:#fdfbf8;font:inherit;font-size:15px;color:var(--testo);cursor:pointer;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}
 .tipi button.on{background:var(--salvia2);border-color:var(--salvia2);color:#fff;font-weight:650}
+textarea{width:100%;padding:14px;border:1.5px solid var(--bordo);border-radius:14px;font:inherit;background:#fdfbf8;color:var(--testo);-webkit-appearance:none;resize:vertical}
+textarea:focus{outline:none;border-color:var(--salvia);background:#fff}
 </style>
 </head>
 <body>
@@ -130,6 +132,14 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
     <input id="quale" type="text" placeholder="es. suite, camere comunicanti, balcone">
     <div class="flex"></div>
     <button class="invia" data-da="camera">Invia</button>
+    <p class="mini">Facoltativo: il motivo è già registrato.</p>
+  </div>
+
+  <div class="card nascosto" id="perche">
+    <h1>Grazie, lo abbiamo segnato.</h1>
+    <label for="perchetxt">Ti va di dirci perché?</label>
+    <textarea id="perchetxt" rows="4" maxlength="280" placeholder="Scrivi qui, se ti va"></textarea>
+    <button class="invia" id="percheinvia">Invia</button>
     <p class="mini">Facoltativo: il motivo è già registrato.</p>
   </div>
 
@@ -355,16 +365,27 @@ function manda(d){
 }
 
 function mostra(id){
-  ["passo1", "prezzo", "camera", "fine"].forEach(function(x){ document.getElementById(x).classList.add("nascosto"); });
+  ["passo1", "prezzo", "camera", "perche", "fine"].forEach(function(x){ document.getElementById(x).classList.add("nascosto"); });
   document.getElementById(id).classList.remove("nascosto");
   window.scrollTo(0, 0);
 }
 
+var motivoScelto = "";
+document.getElementById("percheinvia").addEventListener("click", function(){
+  manda({motivo: motivoScelto, note: document.getElementById("perchetxt").value, completo: true});
+  mostra("fine");
+});
+if (EN) {
+  tx("#perche h1", "Thank you, we have noted it.");
+  tx('label[for="perchetxt"]', "Would you like to tell us why?");
+  document.getElementById("perchetxt").placeholder = "Write here, if you like";
+}
 [].forEach.call(document.querySelectorAll("#passo1 .btn"), function(b){
   b.addEventListener("click", function(){
     var m = b.getAttribute("data-m");
     manda({motivo: m});
-    mostra(m === "prezzo" || m === "camera" ? m : "fine");
+    motivoScelto = m;
+    mostra(m === "prezzo" || m === "camera" ? m : "perche");
   });
 });
 
@@ -378,7 +399,7 @@ function mostra(id){
   });
 });
 
-[].forEach.call(document.querySelectorAll(".invia"), function(b){
+[].forEach.call(document.querySelectorAll(".invia[data-da]"), function(b){
   b.addEventListener("click", function(){
     var da = b.getAttribute("data-da");
     var card = document.getElementById(da);
