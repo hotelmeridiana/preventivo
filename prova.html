@@ -204,8 +204,12 @@ function el(tag, cls, testo){ var e = document.createElement(tag); if (cls) e.cl
 function periodo(box){
   var st = {sett: {}, modo: "sett", a: null, b: null, mese: 4};
   box._st = st;
-  box.appendChild(el("label", "", L("Quali settimane potrebbero andare bene?", "Which weeks could work for you?")));
-  box.appendChild(el("p", "nota", L("Puoi sceglierne più di una. Le nostre settimane vanno da sabato a sabato.", "You can pick more than one. Our weeks run from Saturday to Saturday.")));
+  var tit = el("label", ""), sotto = el("p", "nota");
+  function testa(){
+    tit.textContent = st.modo === "cal" ? L("In quali date potresti venire?", "When could you come?") : L("Quali settimane potrebbero andare bene?", "Which weeks could work for you?");
+    sotto.textContent = st.modo === "cal" ? L("Scegli arrivo e partenza sul calendario.", "Pick arrival and departure on the calendar.") : L("Puoi sceglierne più di una. Le nostre settimane vanno da sabato a sabato.", "You can pick more than one. Our weeks run from Saturday to Saturday.");
+  }
+  testa(); box.appendChild(tit); box.appendChild(sotto);
   var sg = el("div", "stag");
   sg.appendChild(el("b", "", L("Siamo aperti dal 29 maggio al 18 settembre 2027", "We are open from 29 May to 18 September 2027")));
   var ba = el("div", "barra"); ba.appendChild(el("i")); sg.appendChild(ba);
@@ -276,8 +280,8 @@ function periodo(box){
   }
   prima.addEventListener("click", function(){ if (st.mese > 4) { st.mese--; disegna(); } });
   dopo.addEventListener("click", function(){ if (st.mese < 8) { st.mese++; disegna(); } });
-  vaiCal.addEventListener("click", function(){ st.modo = "cal"; lista.classList.add("nascosto"); cal.classList.remove("nascosto"); disegna(); });
-  tornaSett.addEventListener("click", function(){ st.modo = "sett"; cal.classList.add("nascosto"); lista.classList.remove("nascosto"); });
+  vaiCal.addEventListener("click", function(){ st.modo = "cal"; testa(); lista.classList.add("nascosto"); cal.classList.remove("nascosto"); disegna(); });
+  tornaSett.addEventListener("click", function(){ st.modo = "sett"; testa(); cal.classList.add("nascosto"); lista.classList.remove("nascosto"); });
 }
 // Cosa si manda al foglio: dal, al e una nota leggibile.
 function leggiPeriodo(card){
