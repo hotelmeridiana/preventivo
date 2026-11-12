@@ -122,11 +122,47 @@ function par(k){ return (q.get(k) || "").replace(/[<>]/g, "").slice(0, 100); }
 function vero(v){ return v.indexOf("{@") === -1 ? v : ""; }
 var dati0 = {az: "clic", p: vero(par("p")), "in": vero(par("in")), out: vero(par("out")), n: vero(par("n")), cg: vero(par("cg"))};
 
-if (dati0.n) document.getElementById("saluto").textContent = "Grazie, " + dati0.n + ".";
+// Lingua: italiano, oppure inglese se il link finisce con &l=en (reminder in inglese).
+var EN = par("l").toLowerCase() === "en";
+var T = EN ? {
+  grazie: "Thank you", preso: "We have taken note, thank you for letting us know.",
+  chiedi: "Would you tell us why? One tap is enough.",
+  m_prezzo: "The price is too high", m_camera: "The room I wanted was not available",
+  m_zona: "I prefer another area or another hotel", m_idea: "My plans have changed",
+  utile: "Thank you, that helps.", due: "With two details we can check whether there is a better option for you.",
+  budget: "How much were you planning to spend for the stay?", budget_es: "e.g. 1500 euro",
+  quale: "Which room were you looking for?", quale_es: "e.g. suite, connecting rooms, balcony",
+  fless: "Are your dates flexible?", si: "Yes, other dates too", no: "No, only those",
+  periodo: "When could you come?", dal: "From", al: "To", invia: "Send",
+  facolt: "Optional: your reason is already saved.", fine: "Thank you very much.",
+  fine1: "You have helped us improve. If you change your mind, we are always here.",
+  fine2: "We will check whether there is a better option and, if we find one, we will write to you."
+} : null;
+function tx(sel, testo, tutti){ [].forEach.call(document.querySelectorAll(sel), function(e, i){ if (tutti || i === 0) e.textContent = testo; }); }
+function traduci(){
+  document.documentElement.lang = "en";
+  tx("#passo1 .sub", T.preso); tx("#passo1 .chiedi", T.chiedi);
+  tx('[data-m="prezzo"]', T.m_prezzo); tx('[data-m="camera"]', T.m_camera); tx('[data-m="zona"]', T.m_zona); tx('[data-m="idea"]', T.m_idea);
+  tx("#prezzo h1", T.utile); tx("#camera h1", T.utile); tx("#prezzo .sub", T.due);
+  tx('label[for="budget"]', T.budget); document.getElementById("budget").placeholder = T.budget_es;
+  tx('label[for="quale"]', T.quale); document.getElementById("quale").placeholder = T.quale_es;
+  tx(".invia", T.invia, true); tx(".mini", T.facolt, true);
+  tx("#fine h1", T.fine); tx("#finetesto", T.fine1);
+}
+function traduciFlex(){
+  tx(".flex > label", T.fless, true); tx('.fl[data-v="Si"]', T.si, true); tx('.fl[data-v="No"]', T.no, true);
+  tx(".periodo > label", T.periodo, true);
+  [].forEach.call(document.querySelectorAll(".periodo .piccola"), function(e, i){ e.textContent = i % 2 === 0 ? T.dal : T.al; });
+}
+if (EN) traduci();
+
+var saluto = (EN ? T.grazie : "Grazie");
+document.getElementById("saluto").textContent = dati0.n ? saluto + ", " + dati0.n + "." : saluto + ".";
 
 [].forEach.call(document.querySelectorAll(".flex"), function(d){
   d.appendChild(document.getElementById("tflex").content.cloneNode(true));
 });
+if (EN) traduciFlex();
 
 function chiama(corpo){
   // text/plain evita la richiesta di controllo del browser; niente cookie, quindi nessun problema di account Google.
@@ -183,7 +219,7 @@ function mostra(id){
     if (da === "camera") d.camera = document.getElementById("quale").value;
     manda(d);
     if (flex === "Si" || d.budget || d.camera) {
-      document.getElementById("finetesto").textContent = "Guardiamo se c'è una soluzione più adatta e, se la troviamo, ti scriviamo.";
+      document.getElementById("finetesto").textContent = EN ? T.fine2 : "Guardiamo se c'è una soluzione più adatta e, se la troviamo, ti scriviamo.";
     }
     mostra("fine");
   });
