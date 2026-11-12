@@ -47,6 +47,45 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
 .piede{text-align:center;font-size:13px;color:var(--tenue);margin-top:24px;line-height:1.7}
 .piede a{color:var(--salvia2);text-decoration:none;font-weight:600}
 .nascosto{display:none}
+
+.stag{margin:4px 0 14px}
+.stag b{display:block;font-size:15px;margin-bottom:7px}
+.stag .barra{position:relative;height:12px;border-radius:6px;background:var(--bordo)}
+.stag .barra i{position:absolute;top:0;height:12px;border-radius:6px;background:var(--verde);left:18.3%;width:73.9%}
+.stag .mesi{display:flex;font-size:12px;color:var(--tenue);margin-top:4px}
+.stag .mesi span{flex:1;text-align:center}
+.nota{font-size:14px;color:var(--tenue);margin:-2px 0 12px}
+.sw{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:8px 12px;margin:0 0 8px;border:1.5px solid var(--bordo);border-radius:14px;background:#fdfbf8;font:inherit;color:var(--testo);text-align:left;cursor:pointer;-webkit-appearance:none;-webkit-tap-highlight-color:transparent}
+.sw .q{flex:none;width:26px;height:26px;border-radius:8px;border:2px solid #b9ad9b;background:#fff;position:relative}
+.sw.on{border-color:var(--salvia2);background:#eef2ec}
+.sw.on .q{border-color:var(--salvia2);background:var(--salvia2)}
+.sw.on .q::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;border-right:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(45deg)}
+.sw .d{flex:1;font-weight:650}
+.sw .d small{display:block;font-weight:700;font-size:12px;color:#4c5f47}
+.sw .n{flex:none;background:#e4f0b8;border-radius:10px;padding:5px 8px;font-size:12px;font-weight:700;color:#2f3b2b}
+.piu{display:block;width:100%;padding:12px;margin:2px 0 6px;border:1.5px solid var(--bordo);border-radius:14px;background:#fff;font:inherit;font-size:15px;font-weight:650;color:#4c5f47;cursor:pointer}
+.lnk{display:block;width:100%;padding:10px;border:0;background:transparent;font:inherit;font-size:15px;color:#4c5f47;text-decoration:underline;cursor:pointer}
+.cal .nav{display:flex;align-items:center;justify-content:space-between;margin:6px 0 8px}
+.cal .nav b{font-size:18px}
+.cal .nav button{width:44px;height:44px;border:1.5px solid var(--bordo);border-radius:12px;background:#fff;font:inherit;font-size:20px;color:var(--salvia2);cursor:pointer}
+.cal .nav button:disabled{opacity:.3}
+.gr{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.gr .h{text-align:center;font-size:12px;font-weight:700;color:var(--tenue);padding:4px 0}
+.gr .h.sab{color:#2f3b2b;background:#e4f0b8;border-radius:8px}
+.gr button{height:46px;padding:0;border:0;border-radius:10px;background:#fff;font:inherit;font-size:16px;color:var(--testo);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gr button.sab{background:#e4f0b8;color:#2f3b2b;font-weight:700}
+.gr button.ch{background:#efe7da;color:var(--tenue);text-decoration:line-through;border:1px dashed #b9ad9b;cursor:default}
+.gr button.mez{background:#dfe6dc}
+.gr button.est{background:var(--salvia2);color:#fff;font-weight:700}
+.leg{font-size:13px;margin:12px 0 4px;line-height:2}
+.leg i{display:inline-block;width:20px;height:20px;border-radius:6px;vertical-align:middle;margin-right:8px;background:#e4f0b8}
+.leg i.ch{background:#efe7da;border:1px dashed #b9ad9b;box-sizing:border-box}
+.scelta{background:var(--sabbia);border-radius:12px;padding:12px;font-size:15px;margin-top:8px}
+.cart{display:block;line-height:0}
+.gr button .cart{margin:1px auto 0;width:11px}
+.leg i{position:relative}
+.leg i .cart{position:absolute;left:4px;top:4px;color:#2f3b2b}
+.sw .n .cart{display:inline-block;vertical-align:-1px}
 </style>
 </head>
 <body>
@@ -100,13 +139,7 @@ input:focus{outline:none;border-color:var(--salvia);background:#fff}
     <button class="btn fl" data-v="Si">Sì, anche altri periodi</button>
     <button class="btn fl" data-v="No">No, solo quelle</button>
   </div>
-  <div class="periodo nascosto">
-    <label>In quale periodo potresti venire?</label>
-    <div class="due">
-      <div><label class="piccola">Dal</label><input class="dal" type="date" min="2027-05-15" max="2027-09-30"></div>
-      <div><label class="piccola">Al</label><input class="al" type="date" min="2027-05-15" max="2027-09-30"></div>
-    </div>
-  </div>
+  <div class="periodo nascosto"></div>
 </template>
 
 <script>
@@ -151,8 +184,6 @@ function traduci(){
 }
 function traduciFlex(){
   tx(".flex > label", T.fless, true); tx('.fl[data-v="Si"]', T.si, true); tx('.fl[data-v="No"]', T.no, true);
-  tx(".periodo > label", T.periodo, true);
-  [].forEach.call(document.querySelectorAll(".periodo .piccola"), function(e, i){ e.textContent = i % 2 === 0 ? T.dal : T.al; });
 }
 if (EN) traduci();
 
@@ -163,6 +194,120 @@ document.getElementById("saluto").textContent = dati0.n ? saluto + ", " + dati0.
   d.appendChild(document.getElementById("tflex").content.cloneNode(true));
 });
 if (EN) traduciFlex();
+
+// ---- Periodo flessibile: settimane da sabato a sabato, oppure calendario libero ----
+function L(it, en){ return EN ? en : it; }
+var APRE = new Date(2027, 4, 29), CHIUDE = new Date(2027, 8, 18);
+var MESI = EN ? ["January","February","March","April","May","June","July","August","September"] : ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre"];
+var MB = EN ? ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"] : ["gen","feb","mar","apr","mag","giu","lug","ago","set"];
+var GG = EN ? ["Sat","Sun","Mon","Tue","Wed","Thu","Fri"] : ["Sab","Dom","Lun","Mar","Mer","Gio","Ven"];
+function piu(d, n){ return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+function iso(d){ function z(x){ return (x < 10 ? "0" : "") + x; } return d.getFullYear() + "-" + z(d.getMonth() + 1) + "-" + z(d.getDate()); }
+function corta(d){ return d.getDate() + " " + MB[d.getMonth()]; }
+var CART = '<svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8L3 12z"></path><circle cx="7.5" cy="8.5" r="1.3"></circle></svg>';
+function cart(){ var t = document.createElement("span"); t.className = "cart"; t.innerHTML = CART; return t; }
+function el(tag, cls, testo){ var e = document.createElement(tag); if (cls) e.className = cls; if (testo != null) e.textContent = testo; if (tag === "button") e.type = "button"; return e; }
+
+function periodo(box){
+  var st = {sett: {}, modo: "sett", a: null, b: null, mese: 4};
+  box._st = st;
+  var tit = el("label", ""), sotto = el("p", "nota");
+  function testa(){
+    tit.textContent = st.modo === "cal" ? L("In quali date potresti venire?", "When could you come?") : L("Quali settimane potrebbero andare bene?", "Which weeks could work for you?");
+    sotto.textContent = st.modo === "cal" ? L("Scegli arrivo e partenza sul calendario.", "Pick arrival and departure on the calendar.") : L("Puoi sceglierne più di una. Le nostre settimane vanno da sabato a sabato.", "You can pick more than one. Our weeks run from Saturday to Saturday.");
+  }
+  testa(); box.appendChild(tit); box.appendChild(sotto);
+  var sg = el("div", "stag");
+  sg.appendChild(el("b", "", L("Siamo aperti dal 29 maggio al 18 settembre 2027", "We are open from 29 May to 18 September 2027")));
+  var ba = el("div", "barra"); ba.appendChild(el("i")); sg.appendChild(ba);
+  var ms = el("div", "mesi"); [4,5,6,7,8].forEach(function(m){ ms.appendChild(el("span", "", MB[m])); }); sg.appendChild(ms);
+  box.appendChild(sg);
+
+  var lista = el("div", "lista"); box.appendChild(lista);
+  var i = 0;
+  for (var s = APRE; s < CHIUDE; s = piu(s, 7), i++) (function(s, i){
+    var b = el("button", "sw" + (i >= 8 ? " nascosto" : ""));
+    b.setAttribute("aria-pressed", "false");
+    b.appendChild(el("span", "q"));
+    var d = el("span", "d", GG[0] + " " + corta(s) + " → " + GG[0] + " " + corta(piu(s, 7)));
+    if (i === 0) d.appendChild(el("small", "", L("Settimana di apertura", "Opening week")));
+    b.appendChild(d);
+    var nn = el("span", "n"); nn.appendChild(cart()); nn.appendChild(document.createTextNode(" " + L("7 notti", "7 nights"))); b.appendChild(nn);
+    b.addEventListener("click", function(){
+      var k = iso(s);
+      if (st.sett[k]) delete st.sett[k]; else st.sett[k] = true;
+      b.classList.toggle("on", !!st.sett[k]); b.setAttribute("aria-pressed", st.sett[k] ? "true" : "false");
+    });
+    lista.appendChild(b);
+  })(s, i);
+  var altre = el("button", "piu", L("Mostra le settimane fino al 18 settembre", "Show weeks until 18 September"));
+  altre.addEventListener("click", function(){ [].forEach.call(lista.querySelectorAll(".sw.nascosto"), function(x){ x.classList.remove("nascosto"); }); altre.classList.add("nascosto"); });
+  lista.appendChild(altre);
+  var vaiCal = el("button", "lnk", L("Preferisco date diverse dal sabato", "I prefer dates other than Saturday"));
+  lista.appendChild(vaiCal);
+
+  var cal = el("div", "cal nascosto"); box.appendChild(cal);
+  cal.appendChild(el("p", "nota", L("Tocca il giorno di arrivo e poi quello di partenza. Ogni riga è una settimana da sabato a venerdì.", "Tap your arrival day, then your departure day. Each row is a week from Saturday to Friday.")));
+  var nav = el("div", "nav"), prima = el("button", "", "‹"), titolo = el("b"), dopo = el("button", "", "›");
+  prima.setAttribute("aria-label", L("Mese precedente", "Previous month")); dopo.setAttribute("aria-label", L("Mese successivo", "Next month"));
+  nav.appendChild(prima); nav.appendChild(titolo); nav.appendChild(dopo); cal.appendChild(nav);
+  var gr = el("div", "gr"); cal.appendChild(gr);
+  var leg = el("div", "leg");
+  var l1 = el("div"); var qi = el("i"); qi.appendChild(cart()); l1.appendChild(qi); l1.appendChild(document.createTextNode(L("Sabato: giorno di arrivo consigliato", "Saturday: recommended arrival day")));
+  var l2 = el("div"); l2.appendChild(el("i", "ch")); l2.appendChild(document.createTextNode(L("Hotel chiuso", "Hotel closed")));
+  leg.appendChild(l1); leg.appendChild(l2); cal.appendChild(leg);
+  var scelta = el("div", "scelta nascosto"); cal.appendChild(scelta);
+  var tornaSett = el("button", "lnk", L("Torna alle settimane da sabato a sabato", "Back to Saturday to Saturday weeks"));
+  cal.appendChild(tornaSett);
+
+  function disegna(){
+    titolo.textContent = MESI[st.mese] + " 2027";
+    prima.disabled = st.mese <= 4; dopo.disabled = st.mese >= 8;
+    gr.textContent = "";
+    GG.forEach(function(g, i){ gr.appendChild(el("div", "h" + (i === 0 ? " sab" : ""), g)); });
+    var uno = new Date(2027, st.mese, 1), vuoti = (uno.getDay() + 1) % 7, n = new Date(2027, st.mese + 1, 0).getDate();
+    for (var v = 0; v < vuoti; v++) gr.appendChild(el("div"));
+    for (var g = 1; g <= n; g++) (function(d){
+      var b = el("button", "", String(d.getDate()));
+      if (d < APRE || d > CHIUDE) { b.className = "ch"; b.disabled = true; b.setAttribute("aria-label", d.getDate() + " " + MESI[d.getMonth()] + ", " + L("hotel chiuso", "hotel closed")); }
+      else {
+        if (d.getDay() === 6) b.className = "sab";
+        if (d.getDay() === 6) b.appendChild(cart());
+        if (st.a && +d === +st.a || st.b && +d === +st.b) b.className = "est";
+        else if (st.a && st.b && d > st.a && d < st.b) b.className = "mez";
+        b.addEventListener("click", function(){
+          if (!st.a || st.b || d <= st.a) { st.a = d; st.b = null; } else st.b = d;
+          disegna();
+        });
+      }
+      gr.appendChild(b);
+    })(new Date(2027, st.mese, g));
+    if (st.a && st.b) { scelta.textContent = corta(st.a) + " → " + corta(st.b) + " · " + Math.round((st.b - st.a) / 864e5) + " " + L("notti", "nights"); scelta.classList.remove("nascosto"); }
+    else if (st.a) { scelta.textContent = L("Arrivo ", "Arrival ") + corta(st.a) + L(": ora tocca il giorno di partenza", ": now tap your departure day"); scelta.classList.remove("nascosto"); }
+    else scelta.classList.add("nascosto");
+  }
+  prima.addEventListener("click", function(){ if (st.mese > 4) { st.mese--; disegna(); } });
+  dopo.addEventListener("click", function(){ if (st.mese < 8) { st.mese++; disegna(); } });
+  vaiCal.addEventListener("click", function(){ st.modo = "cal"; testa(); lista.classList.add("nascosto"); cal.classList.remove("nascosto"); disegna(); });
+  tornaSett.addEventListener("click", function(){ st.modo = "sett"; testa(); cal.classList.add("nascosto"); lista.classList.remove("nascosto"); });
+}
+// Cosa si manda al foglio: dal, al e una nota leggibile.
+function leggiPeriodo(card){
+  var st = card.querySelector(".periodo")._st, r = {};
+  if (!st) return r;
+  if (st.modo === "cal") {
+    if (st.a) { r.dal = iso(st.a); r.al = iso(st.b || st.a); r.note = "Date libere scelte dal calendario"; }
+  } else {
+    var k = Object.keys(st.sett).sort();
+    if (k.length) {
+      function fine(x){ var p = x.split("-"); return piu(new Date(+p[0], +p[1] - 1, +p[2]), 7); }
+      r.dal = k[0]; r.al = iso(fine(k[k.length - 1]));
+      r.note = "Settimane sab-sab: " + k.map(function(x){ var p = x.split("-"); return p[2] + "/" + p[1] + "-" + ("0" + fine(x).getDate()).slice(-2) + "/" + ("0" + (fine(x).getMonth() + 1)).slice(-2); }).join(", ");
+    }
+  }
+  return r;
+}
+[].forEach.call(document.querySelectorAll(".periodo"), periodo);
 
 function chiama(corpo){
   // text/plain evita la richiesta di controllo del browser; niente cookie, quindi nessun problema di account Google.
@@ -214,7 +359,7 @@ function mostra(id){
     var card = document.getElementById(da);
     var flex = card.getAttribute("data-flex") || "";
     var d = {motivo: da, flessibili: flex, completo: true};
-    if (flex === "Si") { d.dal = card.querySelector(".dal").value; d.al = card.querySelector(".al").value; }
+    if (flex === "Si") { var pe = leggiPeriodo(card); if (pe.dal) { d.dal = pe.dal; d.al = pe.al; d.note = pe.note; } }
     if (da === "prezzo") d.budget = document.getElementById("budget").value;
     if (da === "camera") d.camera = document.getElementById("quale").value;
     manda(d);
