@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Meridiana Family & Nature Hotel</title>
+<style>
+:root{--verde:#9ec617;--salvia:#6b7b66;--salvia2:#5d7058;--corallo:#e95770;--corallo2:#d9445f;--sabbia:#f4eee5;--bordo:#e9dcc9;--testo:#3b3b3b;--tenue:#7b7468}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--sabbia);color:var(--testo);font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:0 14px 60px;-webkit-text-size-adjust:100%}
+.wrap{max-width:480px;margin:0 auto}
+.testa{text-align:center;padding:26px 0 4px}
+.testa img{width:230px;max-width:70%;height:auto;display:block;margin:0 auto}
+.logo{font-size:34px;font-weight:300;color:var(--verde);letter-spacing:.02em;line-height:1.1}
+.logo small{display:block;font-size:13px;color:var(--salvia);letter-spacing:.14em;margin-top:6px}
+.card{background:#fff;border-radius:22px;padding:26px 20px 22px;margin-top:16px;box-shadow:0 10px 30px rgba(107,123,102,.12);animation:su .35s ease both}
+@keyframes su{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card{animation:none}}
+h1{font-size:24px;line-height:1.25;margin:0 0 8px;font-weight:650;letter-spacing:-.01em}
+p{margin:0 0 14px}
+.sub{color:var(--tenue)}
+.chiedi{font-weight:600;margin:18px 0 12px}
+.btn{position:relative;display:block;width:100%;text-align:left;padding:17px 44px 17px 18px;margin:0 0 10px;border:1.5px solid var(--bordo);border-radius:16px;background:#fdfbf8;font:inherit;color:var(--testo);cursor:pointer;-webkit-appearance:none;transition:background .15s,border-color .15s,transform .08s;-webkit-tap-highlight-color:transparent}
+.btn::after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--salvia);border-top:2px solid var(--salvia);transform:translateY(-50%) rotate(45deg);opacity:.7}
+.btn:hover{border-color:var(--salvia);background:#fff}
+.btn:active{transform:scale(.985)}
+.btn.on{background:var(--salvia);border-color:var(--salvia);color:#fff}
+.btn:focus-visible,.invia:focus-visible{outline:3px solid rgba(107,123,102,.45);outline-offset:2px}
+.due{display:flex;gap:10px}
+.due .btn{text-align:center;margin:0;padding:15px 10px}
+.due .btn::after{display:none}
+.due>div{flex:1;min-width:0}
+label{display:block;font-weight:600;margin:18px 0 8px}
+label.piccola{font-weight:400;font-size:14px;color:var(--tenue);margin:0 0 4px}
+input{width:100%;padding:14px;border:1.5px solid var(--bordo);border-radius:14px;font:inherit;background:#fdfbf8;color:var(--testo);-webkit-appearance:none;min-height:54px}
+input:focus{outline:none;border-color:var(--salvia);background:#fff}
+.periodo{background:#f8f4ee;border-radius:16px;padding:2px 14px 14px;margin-top:12px}
+.invia{display:block;width:100%;margin-top:20px;padding:17px;border:0;border-radius:16px;background:var(--corallo);color:#fff;font:inherit;font-weight:650;cursor:pointer;box-shadow:0 6px 16px rgba(233,87,112,.28);transition:background .15s,transform .08s}
+.invia:hover{background:var(--corallo2)}
+.invia:active{transform:scale(.985)}
+.mini{font-size:14px;color:var(--tenue);text-align:center;margin:14px 0 0}
+.spunta{width:58px;height:58px;border-radius:50%;background:#eef4dc;margin:0 auto 14px;position:relative}
+.spunta::after{content:"";position:absolute;left:21px;top:13px;width:13px;height:24px;border-right:4px solid var(--verde);border-bottom:4px solid var(--verde);transform:rotate(45deg)}
+#fine{text-align:center}
+.piede{text-align:center;font-size:13px;color:var(--tenue);margin-top:24px;line-height:1.7}
+.piede a{color:var(--salvia2);text-decoration:none;font-weight:600}
+.nascosto{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="testa">
+    <img id="logo" alt="Meridiana Family &amp; Nature Hotel" src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/1cb4d85f-26f3-4339-86a7-d07d8adee8c7/hotel-7891/Group%202746.png" width="230" height="71">
+    <div class="logo nascosto" id="logotesto">Meridiana<small>FAMILY &amp; NATURE HOTEL</small></div>
+  </div>
+
+  <div class="card" id="passo1">
+    <h1 id="saluto">Grazie.</h1>
+    <p class="sub">Abbiamo preso nota, grazie per avercelo detto.</p>
+    <p class="chiedi">Ci dici il motivo? Basta un tocco.</p>
+    <button class="btn" data-m="prezzo">Il prezzo è troppo alto</button>
+    <button class="btn" data-m="camera">Non c'era la camera che cercavo</button>
+    <button class="btn" data-m="zona">Preferisco un'altra zona o un altro hotel</button>
+    <button class="btn" data-m="idea">Ho cambiato programmi</button>
+  </div>
+
+  <div class="card nascosto" id="prezzo">
+    <h1>Grazie, è utile saperlo.</h1>
+    <p class="sub">Con due informazioni possiamo guardare se esiste una soluzione più adatta.</p>
+    <label for="budget">Quanto pensavi di spendere per il soggiorno?</label>
+    <input id="budget" type="text" inputmode="numeric" placeholder="es. 1500 euro">
+    <div class="flex"></div>
+    <button class="invia" data-da="prezzo">Invia</button>
+    <p class="mini">Facoltativo: il motivo è già registrato.</p>
+  </div>
+
+  <div class="card nascosto" id="camera">
+    <h1>Grazie, è utile saperlo.</h1>
+    <label for="quale">Quale camera cercavi?</label>
+    <input id="quale" type="text" placeholder="es. suite, camere comunicanti, balcone">
+    <div class="flex"></div>
+    <button class="invia" data-da="camera">Invia</button>
+    <p class="mini">Facoltativo: il motivo è già registrato.</p>
+  </div>
+
+  <div class="card nascosto" id="fine">
+    <div class="spunta"></div>
+    <h1>Grazie davvero.</h1>
+    <p class="sub" id="finetesto">Ci hai aiutato a migliorare. Se cambi idea, ci trovi sempre.</p>
+  </div>
+
+  <div class="piede">Meridiana Family &amp; Nature Hotel, Marina Romea<br>Tel. 0544 446040 &middot; <a href="https://www.hotelmeridiana.net">hotelmeridiana.net</a></div>
+</div>
+
+<template id="tflex">
+  <label>Le date sono flessibili?</label>
+  <div class="due">
+    <button class="btn fl" data-v="Si">Sì, anche altri periodi</button>
+    <button class="btn fl" data-v="No">No, solo quelle</button>
+  </div>
+  <div class="periodo nascosto">
+    <label>In quale periodo potresti venire?</label>
+    <div class="due">
+      <div><label class="piccola">Dal</label><input class="dal" type="date" min="2027-05-15" max="2027-09-30"></div>
+      <div><label class="piccola">Al</label><input class="al" type="date" min="2027-05-15" max="2027-09-30"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+// Il motore che scrive nel foglio (Apps Script). Il cliente non lo vede mai.
+var MOTORE = "https://script.google.com/macros/s/AKfycbwpf06WKj5uA_cGpVYQrpWY1qTzKflr8j6Uv9x-wndwry01Z4l0rOfj8HCXgkjdwSYe/exec";
+
+// Se il logo non si carica resta la scritta.
+document.getElementById("logo").addEventListener("error", function(){ this.classList.add("nascosto"); document.getElementById("logotesto").classList.remove("nascosto"); });
+
+var q = new URLSearchParams(location.search);
+function par(k){ return (q.get(k) || "").replace(/[<>]/g, "").slice(0, 100); }
+// Se BeDirect non ha riempito una variabile resta scritto {@...@}: si tratta come vuoto.
+function vero(v){ return v.indexOf("{@") === -1 ? v : ""; }
+var dati0 = {az: "clic", p: vero(par("p")), "in": vero(par("in")), out: vero(par("out")), n: vero(par("n")), cg: vero(par("cg"))};
+
+if (dati0.n) document.getElementById("saluto").textContent = "Grazie, " + dati0.n + ".";
+
+[].forEach.call(document.querySelectorAll(".flex"), function(d){
+  d.appendChild(document.getElementById("tflex").content.cloneNode(true));
+});
+
+function chiama(corpo){
+  // text/plain evita la richiesta di controllo del browser; niente cookie, quindi nessun problema di account Google.
+  return fetch(MOTORE, {method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(corpo), credentials: "omit", redirect: "follow"})
+    .then(function(r){ return r.json(); });
+}
+
+// Il clic si registra subito, all'apertura. Le risposte successive aspettano in fila la riga.
+var riga = chiama(dati0).catch(function(){ return null; });
+var coda = riga;
+function manda(d){
+  coda = coda.then(function(){ return riga; }).then(function(r){
+    if (!r || !r.ok) return null;
+    return chiama({az: "registra", riga: r.riga, chiave: r.chiave, dati: d}).catch(function(){ return null; });
+  });
+}
+
+function mostra(id){
+  ["passo1", "prezzo", "camera", "fine"].forEach(function(x){ document.getElementById(x).classList.add("nascosto"); });
+  document.getElementById(id).classList.remove("nascosto");
+  window.scrollTo(0, 0);
+}
+
+[].forEach.call(document.querySelectorAll("#passo1 .btn"), function(b){
+  b.addEventListener("click", function(){
+    var m = b.getAttribute("data-m");
+    manda({motivo: m});
+    mostra(m === "prezzo" || m === "camera" ? m : "fine");
+  });
+});
+
+[].forEach.call(document.querySelectorAll(".fl"), function(b){
+  b.addEventListener("click", function(){
+    var card = b.closest(".card");
+    [].forEach.call(card.querySelectorAll(".fl"), function(x){ x.classList.remove("on"); });
+    b.classList.add("on");
+    card.setAttribute("data-flex", b.getAttribute("data-v"));
+    card.querySelector(".periodo").classList.toggle("nascosto", b.getAttribute("data-v") !== "Si");
+  });
+});
+
+[].forEach.call(document.querySelectorAll(".invia"), function(b){
+  b.addEventListener("click", function(){
+    var da = b.getAttribute("data-da");
+    var card = document.getElementById(da);
+    var flex = card.getAttribute("data-flex") || "";
+    var d = {motivo: da, flessibili: flex, completo: true};
+    if (flex === "Si") { d.dal = card.querySelector(".dal").value; d.al = card.querySelector(".al").value; }
+    if (da === "prezzo") d.budget = document.getElementById("budget").value;
+    if (da === "camera") d.camera = document.getElementById("quale").value;
+    manda(d);
+    if (flex === "Si" || d.budget || d.camera) {
+      document.getElementById("finetesto").textContent = "Guardiamo se c'è una soluzione più adatta e, se la troviamo, ti scriviamo.";
+    }
+    mostra("fine");
+  });
+});
+</script>
+</body>
+</html>
