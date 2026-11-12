@@ -135,9 +135,13 @@ function chiama(corpo){
 }
 
 // Il clic si registra subito, all'apertura. Le risposte successive aspettano in fila la riga.
-var riga = chiama(dati0).catch(function(){ return null; });
-var coda = riga;
+// Se l'indirizzo e' arrivato senza nessun dato (pagina aperta a mano) la riga nasce solo alla prima risposta.
+var vuoto = !(dati0.p || dati0["in"] || dati0.out || dati0.n || dati0.cg);
+function clic(){ return chiama(dati0).catch(function(){ return null; }); }
+var riga = vuoto ? null : clic();
+var coda = Promise.resolve();
 function manda(d){
+  if (!riga) riga = clic();
   coda = coda.then(function(){ return riga; }).then(function(r){
     if (!r || !r.ok) return null;
     return chiama({az: "registra", riga: r.riga, chiave: r.chiave, dati: d}).catch(function(){ return null; });
